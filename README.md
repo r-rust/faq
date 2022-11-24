@@ -31,6 +31,10 @@ The current version of cargo/rustc on __Fedora__ can be found here:
 
 However, some of your users may actually be running Ubuntu/RHEL LTS platforms, which have even older versions of rust. Remember that many R users are on shared servers and don't have permissions to install/upgrade rustc. Hence try to be convervative in assuming the latest dependencies / rust features in your package.
 
+## They say Rust is installed, but `cargo` cannot be found in `PATH`?
+
+This might happen on UNIX-alike platforms. `PATH` is typically configured in the shell's startup scripts like `.bash_profile` and `.zprofile`, but it seems these scripts might not be loaded in some cases. In order to address this, you should either add `$HOME/.cargo/bin` to `PATH` ([example](https://github.com/r-rust/hellorust/blob/8902d6677d70d91b7336a90ba3d8d41f4a9011cd/src/Makevars#L17)) or to source `$HOME/.cargo/env`, if it's available, before executing `cargo` command. 
+
 ## How to avoid writing in HOME
 
 CRAN has a policy:
@@ -48,7 +52,7 @@ The R for Windows toolchains since R-3.3.0 have been compatible with the rustc `
 Note that you can build and check packages yourself on Windows with R-4.1.x (and older) using e.g. GitHub actions CI or [r-runiverse](https://r-rust.r-universe.dev/ui#builds), because the toolchains are actually fine. The problem is just the CRAN server.
 
 
-## Should I mention authors of 3rd party cargo crates in the description/license
+## Should I mention authors of 3rd party cargo crates in the description/license?
 
 Generally speaking, the R package description and license files (that are included with every source package) should declare authorship and copyright of __all source code that is contained within this source package__. Hence, if you copied any material authored by other people in a package that you submit to CRAN, you must mention those people and the copyright in the description, because CRAN hosts this material on their servers.
 
