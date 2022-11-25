@@ -33,7 +33,7 @@ However, some of your users may actually be running Ubuntu/RHEL LTS platforms, w
 
 ## They say Rust is installed, but `cargo` cannot be found in `PATH`?
 
-This might happen on UNIX-alike platforms. `PATH` is typically configured in the shell's startup scripts like `.bash_profile` and `.zprofile`, but it seems these scripts might not be loaded in some cases. In order to address this, you should either add `$HOME/.cargo/bin` to `PATH` ([example](https://github.com/r-rust/hellorust/blob/8902d6677d70d91b7336a90ba3d8d41f4a9011cd/src/Makevars#L17)) or to source `$HOME/.cargo/env`, if it's available, before executing `cargo` command. 
+This might happen on UNIX-alike platforms. `PATH` is typically configured in the shell's startup scripts like `.bash_profile` and `.zprofile`, but it seems these scripts might not be loaded in some cases. In order to address this, you should either add `$HOME/.cargo/bin` to `PATH` ([example](https://github.com/r-rust/hellorust/blob/8902d6677d70d91b7336a90ba3d8d41f4a9011cd/src/Makevars#L17)) or source `$HOME/.cargo/env`, if it's available, before executing `cargo` command. 
 
 ## How to avoid writing in HOME
 
