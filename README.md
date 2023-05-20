@@ -45,13 +45,6 @@ On most systems, the default cargo configuration keeps a cache in `~/.cargo`, wh
 
 Personally I think it would be better if CRAN could set a global `CARGO_HOME` on their end, because it is actually not the R package, but the local cargo config that causes writing in the user home dir. However Kurt did not agree, so we set CARGO_HOME in the R package to comply with the policy.
 
-## Why do CRAN checks fail on R-4.1.3 on Windows (r-windows-oldrel) ?
-
-The R for Windows toolchains since R-3.3.0 have been compatible with the rustc `pc-windows-gnu` target. However unfortunately the CRAN infrastructure uses a very old Windows 2008 server (which does not support Rust) to build R packages for R 4.1.3 on Windows. Therefore, packages with Rust code fail to build on CRAN r-win-oldrel. Fortunately CRAN does not enforce r-oldrel, so you may ignore the failure. This problem will automatically disappear after the release of R-4.3.0 in 2023.
-
-Note that you can build and check packages yourself on Windows with R-4.1.x (and older) using e.g. GitHub actions CI or [r-runiverse](https://r-rust.r-universe.dev/ui#builds), because the toolchains are actually fine. The problem is just the CRAN server.
-
-
 ## Should I mention authors of 3rd party cargo crates in the description/license?
 
 Generally speaking, the R package description and license files (that are included with every source package) should declare authorship and copyright of __all source code that is contained within this source package__. Hence, if you copied any material authored by other people in a package that you submit to CRAN, you must mention those people and the copyright in the description, because CRAN hosts this material on their servers.
