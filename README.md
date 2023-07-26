@@ -2,11 +2,17 @@
 
 As of November 2022, CRAN has rustc toolchains available on the platforms that it enforces. Some tips to publish your package on CRAN (or elsewhere).
 
+
+
 ## Does CRAN allow packages that use rust / cargo?
 
 It is a bit complicated, because CRAN policy is designed for R packages with C/C++/Fortran code that link to libs available on Linux via e.g. apt/yum. However Rust has its own package ecosystem "cargo", which creates a bit of ambiguity. But generally CRAN seems not opposed to packages with Rust code, if they follow the rules.
 
 In recent discussions on the mailing list, the MacOS maintainer states that [CRAN servers have rustc compilers, and packages should make sure to detect them properly](https://stat.ethz.ch/pipermail/r-package-devel/2022q4/008638.html). Later in the thread he also makes it clear that the CRAN maintainers [have themselves no interest in Rust](https://stat.ethz.ch/pipermail/r-package-devel/2022q4/008640.html), and it is up to the community to establish best practices.
+
+#### Update (July 2023)
+
+CRAN now has some explicit Rust guidelines: https://cran.r-project.org/web/packages/using_rust.html
 
 
 ## How to setup the package
