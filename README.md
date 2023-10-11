@@ -58,3 +58,21 @@ Generally speaking, the R package description and license files (that are includ
 I don't think the package description should name authors of 3rd party things which your package depends on, or links to, if that source code is not included with the source package that is on hosted CRAN. This is not a legal statement of any kind, but simply about labeling what is actually in the box.
 
 If you *vendor* the full rust code in your R package, you must name authors of all cargo dependencies. Because there can be many, the best way to do this by creating an `AUTHORS` file in your R package `inst` folder. The hellorust package has a [script](https://github.com/r-rust/hellorust/blob/master/src/myrustlib/vendor-authors.R) that automatically generates the `inst/AUTHORS` file from `cargo metadata` when building the R source package. See also: https://github.com/r-rust/hellorust#vendoring
+
+## Does rust support Windows on ARM64 (aarch64)
+
+As of writing (October 2023), the `aarch64-pc-windows-gnullvm` target has [tier-3 status](https://doc.rust-lang.org/rustc/platform-support/pc-windows-gnullvm.html) and is not yet supported in the standard rustup distribution. If you install the standard rustup toolchain on Windows it will produce x86_64 binaries, even on ARM64, so that won't work.
+
+However msys2 has been shipping arm64 rust toolchains for a while, and they work great. Hence, one way to test your Rust packages on arm64-windows is to install msys2 and then use it to install rust:
+
+```
+pacman -Sy mingw-w64-clang-aarch64-rust
+```
+
+This will install cargo/rust into `C:\msys64\clangarm64\bin`. To use this toolchain in R, you should put this directory on the PATH in R, for example using your `~/.Renviron` file:
+
+```
+PATH="c:\msys64\clangarm64\bin;${PATH}"
+```
+
+If you previously have installed rust via rustup, you might have to remove this first (`rustup self uninstall`), because many packages automatically put `$(USERPROFILE)\.cargo\bin` on the PATH, and as said, this toolchain does not support aarch64 targets.
