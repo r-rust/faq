@@ -63,16 +63,26 @@ If you *vendor* the full rust code in your R package, you must name authors of a
 
 As of writing (October 2023), the `aarch64-pc-windows-gnullvm` target has [tier-3 status](https://doc.rust-lang.org/rustc/platform-support/pc-windows-gnullvm.html) and is not yet supported in the standard rustup distribution. If you install the standard rustup toolchain on Windows it will produce x86_64 binaries, even on ARM64, so that won't work.
 
-However msys2 has been shipping arm64 rust toolchains for a while, and they work great. Hence, one way to test your Rust packages on arm64-windows is to install msys2 and then use it to install rust:
+However msys2 has been shipping arm64 rust toolchains for a while, and they work great. Hence, one way to test your Rust packages on arm64-windows is to install rust using pacman in rtools43 or msys2:
 
-```
+```sh
 pacman -Sy mingw-w64-clang-aarch64-rust
 ```
 
-This will install cargo/rust into `C:\msys64\clangarm64\bin`. To use this toolchain in R, you should put this directory on the PATH in R, for example using your `~/.Renviron` file:
+This will install cargo/rust into `C:\msys64\clangarm64\bin` or in `C:\rtools43-aarch64\clangarm64\bin` if you used msys2 from rtools43. To use this toolchain in R, we need to put this directory on the PATH, for example using your `~/.Renviron` file:
 
-```
-PATH="c:\msys64\clangarm64\bin;${PATH}"
+```sh
+## Upstream msys2:
+## PATH="c:\msys64\clangarm64\bin;${PATH}"
+
+## Rtools43 msys2:
+PATH="${RTOOLS43_AARCH64_HOME}\\clangarm64\\bin;${PATH}"
 ```
 
 If you previously have installed rust via rustup, you might have to remove this first (`rustup self uninstall`), because many packages automatically put `$(USERPROFILE)\.cargo\bin` on the PATH, and as said, this toolchain does not support aarch64 targets.
+
+You can test it by installing the hellorust R package:
+
+```r
+install.packages("hellorust")
+```
