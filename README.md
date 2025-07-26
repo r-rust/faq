@@ -61,7 +61,7 @@ If you *vendor* the full rust code in your R package, you must name authors of a
 
 ## Does rust support Windows on ARM64 (aarch64)
 
-As of writing (October 2023), the `aarch64-pc-windows-gnullvm` target has [tier-2 status](https://doc.rust-lang.org/beta/rustc/platform-support/windows-gnullvm.html) and is not yet supported in the standard rustup distribution. If you install the standard rustup toolchain on Windows it will produce x86_64 binaries, even on ARM64, so that won't work.
+As of writing (October 2023), the `aarch64-pc-windows-gnullvm` target has [tier-2 status](https://doc.rust-lang.org/stable/rustc/platform-support/windows-gnullvm.html) and is not yet supported in the standard rustup distribution. If you install the standard rustup toolchain on Windows it will produce x86_64 binaries, even on ARM64, so that won't work.
 
 However msys2 has been shipping arm64 rust toolchains for a while, and they work great. Hence, one way to test your Rust packages on arm64-windows is to install rust using pacman in rtools44 or msys2:
 
