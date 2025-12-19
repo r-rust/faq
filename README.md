@@ -61,25 +61,7 @@ If you *vendor* the full rust code in your R package, you must name authors of a
 
 ## Does rust support Windows on ARM64 (aarch64)
 
-As of writing (July 2025), the `aarch64-pc-windows-gnullvm` target has [tier-2 status](https://doc.rust-lang.org/stable/rustc/platform-support/windows-gnullvm.html) and is not yet supported in the standard rustup distribution. If you install the standard rustup toolchain on Windows it will produce x86_64 binaries, even on ARM64, so that won't work.
-
-However msys2 has been shipping arm64 rust toolchains for a while, and they work great. Hence, one way to test your Rust packages on arm64-windows is to install rust using pacman in rtools44 or msys2:
-
-```sh
-pacman -Sy mingw-w64-clang-aarch64-rust
-```
-
-This will install cargo/rust into `C:\msys64\clangarm64\bin` or in `C:\rtools44-aarch64\clangarm64\bin` if you used msys2 from rtools44. To use this toolchain in R, we need to put this directory on the PATH, for example using your `~/.Renviron` file:
-
-```sh
-## Upstream msys2:
-## PATH="c:\msys64\clangarm64\bin;${PATH}"
-
-## Rtools44 msys2 
-PATH="${RTOOLS44_AARCH64_HOME}\\clangarm64\\bin;${PATH}"
-```
-
-If you previously have installed rust via rustup, you might have to remove this first (`rustup self uninstall`), because many packages automatically put `$(USERPROFILE)\.cargo\bin` on the PATH, and as said, this toolchain does not support aarch64 targets.
+As of writing (2025), the `aarch64-pc-windows-gnullvm` target has [tier-2 (with host tools) status](https://doc.rust-lang.org/stable/rustc/platform-support/windows-gnullvm.html), so we can install the toolchain by `rustup target add aarch64-pc-windows-gnullvm`.
 
 You can test it by installing the hellorust R package:
 
